@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<title>Tareas</title>
+<link rel="icon" type="image/svg+xml" href="{{ url_for('static', filename='logo.svg') }}">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+<link rel="stylesheet" href="{{ url_for('static', filename='calendar.css') }}">
+</head>
+<body>
+
+<header>
+  <div class="brand">
+    <img src="{{ url_for('static', filename='logo.svg') }}" alt="" class="brand-logo">
+    <h1>Tareas</h1>
+  </div>
+  <div class="header-actions">
+    <a class="nav-link" href="/calendar">Calendario →</a>
+    <button id="new-task-btn">+ Nueva tarea</button>
+  </div>
+</header>
+
+<section id="controls">
+  <label>
+    Ordenar por
+    <select id="sort-by">
+      <option value="urgency">Urgencia (fecha + complejidad)</option>
+      <option value="due_date">Fecha de entrega</option>
+      <option value="complexity">Complejidad</option>
+      <option value="title">Título</option>
+      <option value="created_at">Creación</option>
+    </select>
+  </label>
+
+  <label>
+    Orden
+    <select id="order">
+      <option value="asc">Ascendente</option>
+      <option value="desc" selected>Descendente</option>
+    </select>
+  </label>
+
+  <label>
+    Materia
+    <select id="subject-filter">
+      <option value="">Todas</option>
+    </select>
+  </label>
+
+  <label>
+    <input type="checkbox" id="group-by-subject">
+    Agrupar por materia
+  </label>
+</section>
+
+<section id="task-list"></section>
+
+<!-- Formulario de tarea (crear / editar) -->
+<dialog id="task-dialog">
+  <form id="task-form">
+    <h2 id="task-dialog-title">Nueva tarea</h2>
+    <input type="hidden" id="task-id">
+
+    <label>Título
+      <input type="text" id="task-title" required>
+    </label>
+
+    <label>Materia
+      <input type="text" id="task-subject" required>
+    </label>
+
+    <label>Fecha de entrega
+      <input type="date" id="task-due-date">
+    </label>
+
+    <label>Complejidad
+      <select id="task-complexity">
+        <option value="1">Baja</option>
+        <option value="2">Media</option>
+        <option value="3">Alta</option>
+      </select>
+    </label>
+
+    <label>Descripción
+      <textarea id="task-description" rows="3"></textarea>
+    </label>
+
+    <div class="dialog-actions">
+      <button type="button" id="task-cancel">Cancelar</button>
+      <button type="submit">Guardar</button>
+    </div>
+  </form>
+</dialog>
+
+<!-- Panel de detalle: subtareas -->
+<dialog id="detail-dialog">
+  <div id="detail-content"></div>
+  <div class="dialog-actions">
+    <button type="button" id="detail-close">Cerrar</button>
+  </div>
+</dialog>
+
+<script src="{{ url_for('static', filename='app.js') }}"></script>
+</body>
+</html>

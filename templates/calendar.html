@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<title>Calendario</title>
+<link rel="icon" type="image/svg+xml" href="{{ url_for('static', filename='logo.svg') }}">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+<link rel="stylesheet" href="{{ url_for('static', filename='calendar.css') }}">
+</head>
+<body>
+
+<header>
+  <div class="brand">
+    <img src="{{ url_for('static', filename='logo.svg') }}" alt="" class="brand-logo">
+    <h1>Calendario</h1>
+  </div>
+  <a class="nav-link" href="/">← Tareas</a>
+</header>
+
+<section id="cal-controls">
+  <button id="prev-month" type="button" aria-label="Mes anterior">‹</button>
+  <div id="cal-month-label"></div>
+  <button id="next-month" type="button" aria-label="Mes siguiente">›</button>
+</section>
+
+<div id="cal-weekdays">
+  <span>Lun</span><span>Mar</span><span>Mié</span><span>Jue</span><span>Vie</span><span>Sáb</span><span>Dom</span>
+</div>
+
+<section id="cal-grid"></section>
+
+<!-- Diálogo: eventos de un día -->
+<dialog id="day-dialog">
+  <h2 id="day-dialog-title"></h2>
+  <div id="day-events-list"></div>
+
+  <form id="event-form">
+    <input type="hidden" id="event-id">
+    <input type="hidden" id="event-date">
+    <label>Título
+      <input type="text" id="event-title" required>
+    </label>
+    <label>Descripción
+      <textarea id="event-description" rows="2"></textarea>
+    </label>
+    <div class="dialog-actions">
+      <button type="button" id="event-cancel">Cancelar</button>
+      <button type="submit" id="event-submit">Añadir evento</button>
+    </div>
+  </form>
+
+  <div class="dialog-actions">
+    <button type="button" id="day-dialog-close">Cerrar</button>
+  </div>
+</dialog>
+
+<script src="{{ url_for('static', filename='calendar.js') }}"></script>
+</body>
+</html>

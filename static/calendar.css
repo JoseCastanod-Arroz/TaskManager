@@ -1,0 +1,149 @@
+.nav-link {
+  font-size: 0.85rem;
+  font-weight: 500;
+  color: var(--accent-ink);
+  text-decoration: none;
+}
+
+.nav-link:hover {
+  text-decoration: underline;
+}
+
+#cal-controls {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 1.25rem;
+  margin-bottom: 1.25rem;
+}
+
+#cal-controls button {
+  padding: 0.35rem 0.85rem;
+  font-size: 1rem;
+  line-height: 1;
+}
+
+#cal-month-label {
+  font-family: "Fraunces", Georgia, serif;
+  font-size: 1.1rem;
+  font-weight: 500;
+  min-width: 11rem;
+  text-align: center;
+}
+
+#cal-weekdays {
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  gap: 0.4rem;
+  font-size: 0.72rem;
+  font-weight: 600;
+  color: var(--muted);
+  text-align: center;
+  margin-bottom: 0.4rem;
+}
+
+#cal-grid {
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  gap: 0.4rem;
+}
+
+.cal-day {
+  min-height: 5.2rem;
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  background: var(--panel);
+  padding: 0.4rem;
+  cursor: pointer;
+  transition: border-color 0.15s ease, background 0.15s ease;
+}
+
+.cal-day:hover {
+  border-color: var(--accent);
+}
+
+.cal-day-empty {
+  border-color: transparent;
+  background: transparent;
+  cursor: default;
+}
+
+.cal-day-empty:hover {
+  border-color: transparent;
+}
+
+.cal-day-today {
+  border-color: var(--accent);
+  background: var(--accent-soft);
+}
+
+.cal-day-num {
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: var(--fg);
+}
+
+.cal-day-dot {
+  margin-top: 0.35rem;
+  font-size: 0.66rem;
+  font-weight: 500;
+  color: var(--accent-ink);
+  background: var(--accent-soft);
+  border-radius: 6px;
+  padding: 0.15rem 0.4rem;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+#day-dialog {
+  width: 420px;
+}
+
+.event-row {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 0.75rem;
+  padding: 0.6rem 0;
+  border-bottom: 1px solid var(--border);
+}
+
+.event-row:last-of-type {
+  border-bottom: none;
+}
+
+.event-row-title {
+  font-weight: 600;
+  font-size: 0.9rem;
+}
+
+.event-row-desc {
+  font-size: 0.8rem;
+  color: var(--muted);
+  margin-top: 0.15rem;
+}
+
+.event-row-actions {
+  display: flex;
+  gap: 0.35rem;
+  flex-shrink: 0;
+}
+
+.event-row-actions button {
+  padding: 0.25rem 0.6rem;
+  font-size: 0.75rem;
+}
+
+.empty-msg-small {
+  color: var(--muted);
+  font-size: 0.85rem;
+  padding: 1rem 0;
+  text-align: center;
+}
+
+#event-form {
+  margin-top: 0.75rem;
+  border-top: 1px solid var(--border);
+  padding-top: 0.9rem;
+}
