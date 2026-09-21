@@ -17,7 +17,11 @@
     <img src="{{ url_for('static', filename='logo.svg') }}" alt="" class="brand-logo">
     <h1>Calendario</h1>
   </div>
-  <a class="nav-link" href="/">← Tareas</a>
+  <nav class="module-nav">
+    {% for link in nav_links %}
+    <a class="nav-link{% if link.href == request.path %} active{% endif %}" href="{{ link.href }}">{{ link.label }}</a>
+    {% endfor %}
+  </nav>
 </header>
 
 <section id="cal-controls">
@@ -45,6 +49,13 @@
     </label>
     <label>Descripción
       <textarea id="event-description" rows="2"></textarea>
+    </label>
+    <label>Módulo
+      <select id="event-module">
+        {% for key, label in module_labels.items() %}
+        <option value="{{ key }}">{{ label }}</option>
+        {% endfor %}
+      </select>
     </label>
     <div class="dialog-actions">
       <button type="button" id="event-cancel">Cancelar</button>

@@ -29,7 +29,7 @@
 body {
   margin: 0;
   padding: 3rem 1.5rem 4rem;
-  max-width: 760px;
+  max-width: 980px;
   margin-inline: auto;
   font-family: "Inter", -apple-system, "Segoe UI", Helvetica, Arial, sans-serif;
   color: var(--fg);
@@ -140,6 +140,75 @@ button:focus-visible, input:focus-visible, select:focus-visible, textarea:focus-
   align-items: center;
   gap: 0.45rem;
   align-self: center;
+}
+
+/* ---------- Layout de dos columnas: tareas + eventos próximos ---------- */
+
+.page-layout {
+  display: flex;
+  align-items: flex-start;
+  gap: 1.75rem;
+}
+
+.main-column {
+  flex: 1;
+  min-width: 0;
+}
+
+.events-sidebar {
+  width: 240px;
+  flex-shrink: 0;
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  background: var(--panel);
+  padding: 1rem 1.1rem;
+}
+
+.events-sidebar h2 {
+  font-size: 0.95rem;
+  margin-bottom: 0.85rem;
+}
+
+.upcoming-event-item {
+  display: flex;
+  align-items: baseline;
+  gap: 0.55rem;
+  padding: 0.5rem 0;
+  border-bottom: 1px solid var(--border);
+  text-decoration: none;
+  color: var(--fg);
+}
+
+.upcoming-event-item:last-child {
+  border-bottom: none;
+}
+
+.upcoming-event-item:hover .upcoming-event-title {
+  text-decoration: underline;
+}
+
+.upcoming-event-date {
+  flex-shrink: 0;
+  font-size: 0.72rem;
+  font-weight: 600;
+  color: var(--accent-ink);
+  background: var(--accent-soft);
+  border-radius: 6px;
+  padding: 0.1rem 0.4rem;
+  text-transform: uppercase;
+}
+
+.upcoming-event-title {
+  font-size: 0.85rem;
+}
+
+@media (max-width: 700px) {
+  .page-layout {
+    flex-direction: column;
+  }
+  .events-sidebar {
+    width: 100%;
+  }
 }
 
 select, input, textarea {

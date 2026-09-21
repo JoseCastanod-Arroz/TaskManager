@@ -9,6 +9,30 @@
   text-decoration: underline;
 }
 
+.module-nav {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  flex-wrap: wrap;
+}
+
+.module-nav .nav-link.active {
+  color: var(--fg);
+  text-decoration: none;
+  position: relative;
+}
+
+.module-nav .nav-link.active::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: -4px;
+  height: 2px;
+  background: var(--accent);
+  border-radius: 2px;
+}
+
 #cal-controls {
   display: flex;
   align-items: center;
@@ -146,4 +170,58 @@
   margin-top: 0.75rem;
   border-top: 1px solid var(--border);
   padding-top: 0.9rem;
+}
+
+/* ---------- Colores por módulo (académico / trabajo / personal / general) ---------- */
+
+.event-badge {
+  display: inline-block;
+  margin-left: 0.5rem;
+  font-size: 0.65rem;
+  font-weight: 600;
+  padding: 0.1rem 0.45rem;
+  border-radius: 999px;
+  vertical-align: middle;
+  text-transform: uppercase;
+  letter-spacing: 0.02em;
+}
+
+.event-badge-academic {
+  background: var(--accent-soft);
+  color: var(--accent-ink);
+}
+
+.event-badge-work {
+  background: var(--amber-soft);
+  color: var(--amber);
+}
+
+.event-badge-personal {
+  background: var(--sage-soft);
+  color: var(--sage);
+}
+
+.event-badge-general {
+  background: var(--panel-alt);
+  color: var(--muted);
+}
+
+.cal-day-dot-academic {
+  background: var(--accent-soft);
+  color: var(--accent-ink);
+}
+
+.cal-day-dot-work {
+  background: var(--amber-soft);
+  color: var(--amber);
+}
+
+.cal-day-dot-personal {
+  background: var(--sage-soft);
+  color: var(--sage);
+}
+
+.cal-day-dot-general {
+  background: var(--panel-alt);
+  color: var(--muted);
 }

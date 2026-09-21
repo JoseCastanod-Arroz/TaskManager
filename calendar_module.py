@@ -11,8 +11,20 @@ tareas/subtareas.
 from datetime import date
 from flask import Blueprint, jsonify, request, render_template
 from database import get_connection
+from nav import NAV_LINKS
 
 calendar_bp = Blueprint("calendar", __name__)
+
+# Módulos a los que un evento puede pertenecer. "general" significa que
+# es relevante para todos (ej. un feriado) y aparece en la lista de
+# próximos eventos de los tres módulos de tareas.
+MODULE_LABELS = {
+    "academic": "Académico",
+    "work": "Trabajo",
+    "personal": "Personal",
+    "general": "General",
+}
+VALID_MODULES = set(MODULE_LABELS.keys())
 
 
 def init_calendar_db():
@@ -26,6 +38,12 @@ def init_calendar_db():
             created_at TEXT DEFAULT (datetime('now'))
         )
     """)
+    # Migración: si la tabla ya existía de antes (sin "module"), se agrega
+    # la columna con valor por defecto "general" para no romper eventos
+    # ya creados.
+    cols = [row["name"] for row in conn.execute("PRAGMA table_info(events)").fetchall()]
+    if "module" not in cols:
+        conn.execute("ALTER TABLE events ADD COLUMN module TEXT NOT NULL DEFAULT 'general'")
     conn.commit()
     conn.close()
 
@@ -34,7 +52,7 @@ def init_calendar_db():
 
 @calendar_bp.route("/calendar")
 def calendar_page():
-    return render_template("calendar.html")
+    return render_template("calendar.html", nav_links=NAV_LINKS, module_labels=MODULE_LABELS)
 
 
 # ---------- API: eventos ----------
@@ -77,6 +95,9 @@ def create_event():
     title = (data.get("title") or "").strip()
     event_date = (data.get("event_date") or "").strip()
     description = data.get("description")
+    module = data.get("module") or "general"
+    if module not in VALID_MODULES:
+        module = "general"
 
     if not title or not event_date:
         return jsonify({"error": "title y event_date son obligatorios"}), 400
@@ -88,8 +109,8 @@ def create_event():
 
     conn = get_connection()
     cur = conn.execute(
-        "INSERT INTO events (title, description, event_date) VALUES (?, ?, ?)",
-        (title, description, event_date),
+        "INSERT INTO events (title, description, event_date, module) VALUES (?, ?, ?, ?)",
+        (title, description, event_date, module),
     )
     conn.commit()
     new_id = cur.lastrowid
@@ -110,6 +131,9 @@ def update_event(event_id):
     title = (data.get("title", existing["title"]) or "").strip() or existing["title"]
     description = data.get("description", existing["description"])
     event_date = data.get("event_date", existing["event_date"])
+    module = data.get("module", existing["module"])
+    if module not in VALID_MODULES:
+        module = existing["module"]
 
     try:
         date.fromisoformat(event_date)
@@ -118,8 +142,8 @@ def update_event(event_id):
         return jsonify({"error": "event_date debe tener formato YYYY-MM-DD"}), 400
 
     conn.execute(
-        "UPDATE events SET title=?, description=?, event_date=? WHERE id=?",
-        (title, description, event_date, event_id),
+        "UPDATE events SET title=?, description=?, event_date=?, module=? WHERE id=?",
+        (title, description, event_date, module, event_id),
     )
     conn.commit()
     event = conn.execute("SELECT * FROM events WHERE id = ?", (event_id,)).fetchone()
@@ -138,3 +162,31 @@ def delete_event(event_id):
     conn.commit()
     conn.close()
     return jsonify({"ok": True})
+
+
+@calendar_bp.route("/api/events/upcoming", methods=["GET"])
+def list_upcoming_events():
+    """Eventos más cercanos relacionados con un módulo (?module=work).
+    Incluye siempre los eventos marcados como "general". Solo eventos de
+    hoy en adelante, ordenados por fecha. ?limit= controla cuántos traer
+    (por defecto 5)."""
+    module = request.args.get("module")
+    try:
+        limit = int(request.args.get("limit", 5))
+    except ValueError:
+        limit = 5
+    limit = max(1, min(limit, 50))
+
+    today = date.today().isoformat()
+    conn = get_connection()
+    query = "SELECT * FROM events WHERE event_date >= ?"
+    params = [today]
+    if module and module in VALID_MODULES:
+        query += " AND (module = ? OR module = 'general')"
+        params.append(module)
+    query += " ORDER BY event_date ASC, created_at ASC LIMIT ?"
+    params.append(limit)
+
+    rows = conn.execute(query, params).fetchall()
+    conn.close()
+    return jsonify([dict(r) for r in rows])

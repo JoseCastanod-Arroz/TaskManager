@@ -11,7 +11,15 @@ const eventIdInput = document.getElementById("event-id");
 const eventDateInput = document.getElementById("event-date");
 const eventTitleInput = document.getElementById("event-title");
 const eventDescriptionInput = document.getElementById("event-description");
+const eventModuleInput = document.getElementById("event-module");
 const eventSubmitBtn = document.getElementById("event-submit");
+
+const moduleLabels = {
+  academic: "Académico",
+  work: "Trabajo",
+  personal: "Personal",
+  general: "General",
+};
 
 const monthNames = [
   "Enero", "Febrero", "Marzo", "Abril", "Mayo", "Junio",
@@ -82,6 +90,9 @@ function renderGrid() {
     if (dayEvents.length > 0) {
       const dot = document.createElement("div");
       dot.className = "cal-day-dot";
+      if (dayEvents.length === 1) {
+        dot.classList.add(`cal-day-dot-${dayEvents[0].module || "general"}`);
+      }
       dot.textContent =
         dayEvents.length > 1 ? `${dayEvents.length} eventos` : dayEvents[0].title;
       cell.appendChild(dot);
@@ -121,6 +132,7 @@ function resetEventForm(dateStr) {
   eventForm.reset();
   eventIdInput.value = "";
   eventDateInput.value = dateStr;
+  eventModuleInput.value = "general";
   eventSubmitBtn.textContent = "Añadir evento";
 }
 
@@ -147,6 +159,10 @@ function renderDayEvents(dateStr) {
     const title = document.createElement("div");
     title.className = "event-row-title";
     title.textContent = ev.title;
+    const badge = document.createElement("span");
+    badge.className = `event-badge event-badge-${ev.module || "general"}`;
+    badge.textContent = moduleLabels[ev.module] || "General";
+    title.appendChild(badge);
     text.appendChild(title);
     if (ev.description) {
       const desc = document.createElement("div");
@@ -166,6 +182,7 @@ function renderDayEvents(dateStr) {
       eventDateInput.value = ev.event_date;
       eventTitleInput.value = ev.title;
       eventDescriptionInput.value = ev.description || "";
+      eventModuleInput.value = ev.module || "general";
       eventSubmitBtn.textContent = "Guardar cambios";
     });
 
@@ -195,6 +212,7 @@ eventForm.addEventListener("submit", async (e) => {
     title: eventTitleInput.value.trim(),
     event_date: eventDateInput.value,
     description: eventDescriptionInput.value.trim(),
+    module: eventModuleInput.value,
   };
 
   const id = eventIdInput.value;

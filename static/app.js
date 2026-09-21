@@ -1,5 +1,48 @@
 const complexityLabels = { 1: "Baja", 2: "Media", 3: "Alta" };
 
+// Base de la API de este módulo (académico / trabajo / personal). Se
+// inyecta desde la plantilla vía window.APP_CONFIG; si no está presente
+// (por compatibilidad), cae a las rutas del módulo académico original.
+const API_BASE = (window.APP_CONFIG && window.APP_CONFIG.apiBase) || "/api/tasks";
+const SUBTASKS_BASE = (window.APP_CONFIG && window.APP_CONFIG.subtasksBase) || "/api/subtasks";
+const MODULE_KEY = window.APP_CONFIG && window.APP_CONFIG.moduleKey;
+
+const upcomingEventsEl = document.getElementById("upcoming-events");
+const shortMonthNames = [
+  "ene", "feb", "mar", "abr", "may", "jun",
+  "jul", "ago", "sep", "oct", "nov", "dic",
+];
+
+function formatEventDate(isoDate) {
+  const [year, month, day] = isoDate.split("-").map(Number);
+  return `${day} ${shortMonthNames[month - 1]}`;
+}
+
+async function loadUpcomingEvents() {
+  if (!upcomingEventsEl || !MODULE_KEY) return;
+  try {
+    const res = await fetch(`/api/events/upcoming?module=${MODULE_KEY}&limit=6`);
+    const events = await res.json();
+    upcomingEventsEl.innerHTML = "";
+    if (events.length === 0) {
+      upcomingEventsEl.innerHTML = '<p class="empty-msg-small">Sin eventos próximos.</p>';
+      return;
+    }
+    events.forEach((ev) => {
+      const item = document.createElement("a");
+      item.className = "upcoming-event-item";
+      item.href = "/calendar";
+      item.innerHTML = `
+        <span class="upcoming-event-date">${formatEventDate(ev.event_date)}</span>
+        <span class="upcoming-event-title">${ev.title}</span>
+      `;
+      upcomingEventsEl.appendChild(item);
+    });
+  } catch (err) {
+    upcomingEventsEl.innerHTML = '<p class="empty-msg-small">No se pudieron cargar los eventos.</p>';
+  }
+}
+
 const taskListEl = document.getElementById("task-list");
 const sortBySel = document.getElementById("sort-by");
 const orderSel = document.getElementById("order");
@@ -29,7 +72,7 @@ function buildQuery() {
 }
 
 async function loadSubjects() {
-  const res = await fetch("/api/subjects");
+  const res = await fetch(`${API_BASE}/subjects`);
   const subjects = await res.json();
   const current = subjectFilterSel.value;
   subjectFilterSel.innerHTML = '<option value="">Todas</option>';
@@ -43,7 +86,7 @@ async function loadSubjects() {
 }
 
 async function loadTasks() {
-  const res = await fetch(`/api/tasks?${buildQuery()}`);
+  const res = await fetch(`${API_BASE}?${buildQuery()}`);
   const data = await res.json();
   taskListEl.innerHTML = "";
 
@@ -170,7 +213,7 @@ taskForm.addEventListener("submit", async (e) => {
   };
 
   const id = taskIdInput.value;
-  const url = id ? `/api/tasks/${id}` : "/api/tasks";
+  const url = id ? `${API_BASE}/${id}` : API_BASE;
   const method = id ? "PUT" : "POST";
 
   const res = await fetch(url, {
@@ -191,7 +234,7 @@ taskForm.addEventListener("submit", async (e) => {
 
 async function deleteTask(id) {
   if (!confirm("¿Eliminar esta tarea y sus subtareas?")) return;
-  await fetch(`/api/tasks/${id}`, { method: "DELETE" });
+  await fetch(`${API_BASE}/${id}`, { method: "DELETE" });
   await loadSubjects();
   await loadTasks();
 }
@@ -199,7 +242,7 @@ async function deleteTask(id) {
 // ---------- Detalle / subtareas ----------
 
 async function openDetail(taskId) {
-  const res = await fetch(`/api/tasks/${taskId}`);
+  const res = await fetch(`${API_BASE}/${taskId}`);
   const task = await res.json();
   renderDetail(task);
   detailDialog.showModal();
@@ -245,7 +288,7 @@ function renderDetail(task) {
   addBtn.addEventListener("click", async () => {
     const value = input.value.trim();
     if (!value) return;
-    await fetch(`/api/tasks/${task.id}/subtasks`, {
+    await fetch(`${API_BASE}/${task.id}/subtasks`, {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({ title: value }),
@@ -266,7 +309,7 @@ function renderSubtaskRow(taskId, s) {
   checkbox.type = "checkbox";
   checkbox.checked = !!s.completed;
   checkbox.addEventListener("change", async () => {
-    await fetch(`/api/subtasks/${s.id}`, {
+    await fetch(`${SUBTASKS_BASE}/${s.id}`, {
       method: "PUT",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({ completed: checkbox.checked }),
@@ -283,7 +326,7 @@ function renderSubtaskRow(taskId, s) {
   delBtn.textContent = "×";
   delBtn.title = "Eliminar subtarea";
   delBtn.addEventListener("click", async () => {
-    await fetch(`/api/subtasks/${s.id}`, { method: "DELETE" });
+    await fetch(`${SUBTASKS_BASE}/${s.id}`, { method: "DELETE" });
     await openDetail(taskId);
     await loadTasks();
   });
@@ -315,4 +358,5 @@ sortBySel.addEventListener("change", () => {
 (async function init() {
   await loadSubjects();
   await loadTasks();
+  await loadUpcomingEvents();
 })();
