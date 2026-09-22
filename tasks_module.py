@@ -10,7 +10,7 @@ su propia API, todos compartiendo el módulo de calendario.
 """
 
 from datetime import date, datetime
-from flask import Blueprint, jsonify, request, render_template
+from flask import Blueprint, jsonify, request, render_template, redirect, url_for, session
 from database import get_connection
 
 VALID_SORT = {"complexity", "due_date", "title", "created_at", "urgency"}
@@ -59,6 +59,17 @@ def create_tasks_module(
     nav_links: lista de dicts {href, label} para la barra de navegación
     """
     bp = Blueprint(name, __name__)
+
+    # ---------- Autenticación ----------
+    # Todas las rutas del módulo requieren sesión. Las páginas redirigen al
+    # login; los endpoints de la API responden 401 en JSON.
+    @bp.before_request
+    def require_login():
+        if session.get("user_id") is not None:
+            return None
+        if request.path.startswith("/api/"):
+            return jsonify({"error": "No autorizado"}), 401
+        return redirect(url_for("auth.login", next=request.path))
 
     def init_db():
         conn = get_connection()

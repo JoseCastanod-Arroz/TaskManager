@@ -9,11 +9,22 @@ tareas/subtareas.
 """
 
 from datetime import date
-from flask import Blueprint, jsonify, request, render_template
+from flask import Blueprint, jsonify, request, render_template, redirect, url_for, session
 from database import get_connection
 from nav import NAV_LINKS
 
 calendar_bp = Blueprint("calendar", __name__)
+
+
+# ---------- Autenticación ----------
+# Igual que los módulos de tareas: página redirige al login, API responde 401.
+@calendar_bp.before_request
+def require_login():
+    if session.get("user_id") is not None:
+        return None
+    if request.path.startswith("/api/"):
+        return jsonify({"error": "No autorizado"}), 401
+    return redirect(url_for("auth.login", next=request.path))
 
 # Módulos a los que un evento puede pertenecer. "general" significa que
 # es relevante para todos (ej. un feriado) y aparece en la lista de
