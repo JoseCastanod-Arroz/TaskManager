@@ -87,11 +87,13 @@ def ask_port():
 
 
 if __name__ == "__main__":
+    # Primero la tabla de usuarios: las migraciones multiusuario de los
+    # demás módulos asignan los datos existentes al primer usuario.
+    init_auth_db()
     academic_bp.init_db()
     work_bp.init_db()
     personal_bp.init_db()
     init_calendar_db()
-    init_auth_db()
     port = ask_port()
     print(f"Servidor disponible en http://127.0.0.1:{port}")
     app.run(host="0.0.0.0", port=port, debug=False)

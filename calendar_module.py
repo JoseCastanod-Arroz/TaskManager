@@ -55,6 +55,17 @@ def init_calendar_db():
     cols = [row["name"] for row in conn.execute("PRAGMA table_info(events)").fetchall()]
     if "module" not in cols:
         conn.execute("ALTER TABLE events ADD COLUMN module TEXT NOT NULL DEFAULT 'general'")
+
+    # Migración multiusuario: agrega user_id y asigna los eventos ya
+    # existentes al primer usuario (admin).
+    if "user_id" not in cols:
+        conn.execute("ALTER TABLE events ADD COLUMN user_id INTEGER")
+        owner = conn.execute("SELECT MIN(id) AS id FROM users").fetchone()["id"]
+        if owner is not None:
+            conn.execute(
+                "UPDATE events SET user_id = ? WHERE user_id IS NULL", (owner,)
+            )
+
     conn.commit()
     conn.close()
 
@@ -75,13 +86,13 @@ def list_events():
     event_date = request.args.get("date")
 
     conn = get_connection()
-    query = "SELECT * FROM events"
-    params = []
+    query = "SELECT * FROM events WHERE user_id = ?"
+    params = [session["user_id"]]
     if event_date:
-        query += " WHERE event_date = ?"
+        query += " AND event_date = ?"
         params.append(event_date)
     elif month:
-        query += " WHERE event_date LIKE ?"
+        query += " AND event_date LIKE ?"
         params.append(f"{month}-%")
     query += " ORDER BY event_date ASC, created_at ASC"
 
@@ -93,7 +104,10 @@ def list_events():
 @calendar_bp.route("/api/events/<int:event_id>", methods=["GET"])
 def get_event(event_id):
     conn = get_connection()
-    event = conn.execute("SELECT * FROM events WHERE id = ?", (event_id,)).fetchone()
+    event = conn.execute(
+        "SELECT * FROM events WHERE id = ? AND user_id = ?",
+        (event_id, session["user_id"]),
+    ).fetchone()
     conn.close()
     if event is None:
         return jsonify({"error": "Evento no encontrado"}), 404
@@ -120,8 +134,8 @@ def create_event():
 
     conn = get_connection()
     cur = conn.execute(
-        "INSERT INTO events (title, description, event_date, module) VALUES (?, ?, ?, ?)",
-        (title, description, event_date, module),
+        "INSERT INTO events (title, description, event_date, module, user_id) VALUES (?, ?, ?, ?, ?)",
+        (title, description, event_date, module, session["user_id"]),
     )
     conn.commit()
     new_id = cur.lastrowid
@@ -134,7 +148,10 @@ def create_event():
 def update_event(event_id):
     data = request.get_json(force=True)
     conn = get_connection()
-    existing = conn.execute("SELECT * FROM events WHERE id = ?", (event_id,)).fetchone()
+    existing = conn.execute(
+        "SELECT * FROM events WHERE id = ? AND user_id = ?",
+        (event_id, session["user_id"]),
+    ).fetchone()
     if existing is None:
         conn.close()
         return jsonify({"error": "Evento no encontrado"}), 404
@@ -165,7 +182,10 @@ def update_event(event_id):
 @calendar_bp.route("/api/events/<int:event_id>", methods=["DELETE"])
 def delete_event(event_id):
     conn = get_connection()
-    existing = conn.execute("SELECT id FROM events WHERE id = ?", (event_id,)).fetchone()
+    existing = conn.execute(
+        "SELECT id FROM events WHERE id = ? AND user_id = ?",
+        (event_id, session["user_id"]),
+    ).fetchone()
     if existing is None:
         conn.close()
         return jsonify({"error": "Evento no encontrado"}), 404
@@ -190,8 +210,8 @@ def list_upcoming_events():
 
     today = date.today().isoformat()
     conn = get_connection()
-    query = "SELECT * FROM events WHERE event_date >= ?"
-    params = [today]
+    query = "SELECT * FROM events WHERE user_id = ? AND event_date >= ?"
+    params = [session["user_id"], today]
     if module and module in VALID_MODULES:
         query += " AND (module = ? OR module = 'general')"
         params.append(module)

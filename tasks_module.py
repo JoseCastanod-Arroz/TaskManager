@@ -95,6 +95,21 @@ def create_tasks_module(
                 FOREIGN KEY (task_id) REFERENCES {tasks_table} (id) ON DELETE CASCADE
             )
         """)
+
+        # Migración multiusuario: agrega la columna user_id a la tabla de
+        # tareas si no existe, y asigna los registros ya creados al primer
+        # usuario (admin). Las subtareas heredan el dueño de su tarea padre,
+        # por lo que no necesitan columna propia.
+        cols = [row["name"] for row in cur.execute(f"PRAGMA table_info({tasks_table})")]
+        if "user_id" not in cols:
+            cur.execute(f"ALTER TABLE {tasks_table} ADD COLUMN user_id INTEGER")
+            owner = cur.execute("SELECT MIN(id) AS id FROM users").fetchone()["id"]
+            if owner is not None:
+                cur.execute(
+                    f"UPDATE {tasks_table} SET user_id = ? WHERE user_id IS NULL",
+                    (owner,),
+                )
+
         conn.commit()
         conn.close()
 
@@ -127,10 +142,10 @@ def create_tasks_module(
             order = "asc"
 
         conn = get_connection()
-        query = f"SELECT * FROM {tasks_table}"
-        params = []
+        query = f"SELECT * FROM {tasks_table} WHERE user_id = ?"
+        params = [session["user_id"]]
         if subject:
-            query += " WHERE subject = ?"
+            query += " AND subject = ?"
             params.append(subject)
 
         if sort_by != "urgency":
@@ -165,7 +180,10 @@ def create_tasks_module(
     @bp.route(f"{tasks_prefix}/<int:task_id>", methods=["GET"])
     def get_task(task_id):
         conn = get_connection()
-        task = conn.execute(f"SELECT * FROM {tasks_table} WHERE id = ?", (task_id,)).fetchone()
+        task = conn.execute(
+            f"SELECT * FROM {tasks_table} WHERE id = ? AND user_id = ?",
+            (task_id, session["user_id"]),
+        ).fetchone()
         if task is None:
             conn.close()
             return jsonify({"error": "Tarea no encontrada"}), 404
@@ -193,8 +211,8 @@ def create_tasks_module(
 
         conn = get_connection()
         cur = conn.execute(
-            f"INSERT INTO {tasks_table} (title, description, due_date, complexity, subject) VALUES (?, ?, ?, ?, ?)",
-            (title, description, due_date, complexity, subject),
+            f"INSERT INTO {tasks_table} (title, description, due_date, complexity, subject, user_id) VALUES (?, ?, ?, ?, ?, ?)",
+            (title, description, due_date, complexity, subject, session["user_id"]),
         )
         conn.commit()
         new_id = cur.lastrowid
@@ -206,7 +224,10 @@ def create_tasks_module(
     def update_task(task_id):
         data = request.get_json(force=True)
         conn = get_connection()
-        existing = conn.execute(f"SELECT * FROM {tasks_table} WHERE id = ?", (task_id,)).fetchone()
+        existing = conn.execute(
+            f"SELECT * FROM {tasks_table} WHERE id = ? AND user_id = ?",
+            (task_id, session["user_id"]),
+        ).fetchone()
         if existing is None:
             conn.close()
             return jsonify({"error": "Tarea no encontrada"}), 404
@@ -229,7 +250,10 @@ def create_tasks_module(
     @bp.route(f"{tasks_prefix}/<int:task_id>", methods=["DELETE"])
     def delete_task(task_id):
         conn = get_connection()
-        existing = conn.execute(f"SELECT id FROM {tasks_table} WHERE id = ?", (task_id,)).fetchone()
+        existing = conn.execute(
+            f"SELECT id FROM {tasks_table} WHERE id = ? AND user_id = ?",
+            (task_id, session["user_id"]),
+        ).fetchone()
         if existing is None:
             conn.close()
             return jsonify({"error": "Tarea no encontrada"}), 404
@@ -249,7 +273,10 @@ def create_tasks_module(
             return jsonify({"error": "title es obligatorio"}), 400
 
         conn = get_connection()
-        task = conn.execute(f"SELECT id FROM {tasks_table} WHERE id = ?", (task_id,)).fetchone()
+        task = conn.execute(
+            f"SELECT id FROM {tasks_table} WHERE id = ? AND user_id = ?",
+            (task_id, session["user_id"]),
+        ).fetchone()
         if task is None:
             conn.close()
             return jsonify({"error": "Tarea no encontrada"}), 404
@@ -268,7 +295,12 @@ def create_tasks_module(
     def update_subtask(subtask_id):
         data = request.get_json(force=True)
         conn = get_connection()
-        existing = conn.execute(f"SELECT * FROM {subtasks_table} WHERE id = ?", (subtask_id,)).fetchone()
+        existing = conn.execute(
+            f"""SELECT s.* FROM {subtasks_table} s
+                JOIN {tasks_table} t ON t.id = s.task_id
+                WHERE s.id = ? AND t.user_id = ?""",
+            (subtask_id, session["user_id"]),
+        ).fetchone()
         if existing is None:
             conn.close()
             return jsonify({"error": "Subtarea no encontrada"}), 404
@@ -289,7 +321,12 @@ def create_tasks_module(
     @bp.route(f"{subtasks_prefix}/<int:subtask_id>", methods=["DELETE"])
     def delete_subtask(subtask_id):
         conn = get_connection()
-        existing = conn.execute(f"SELECT id FROM {subtasks_table} WHERE id = ?", (subtask_id,)).fetchone()
+        existing = conn.execute(
+            f"""SELECT s.id FROM {subtasks_table} s
+                JOIN {tasks_table} t ON t.id = s.task_id
+                WHERE s.id = ? AND t.user_id = ?""",
+            (subtask_id, session["user_id"]),
+        ).fetchone()
         if existing is None:
             conn.close()
             return jsonify({"error": "Subtarea no encontrada"}), 404
@@ -303,7 +340,10 @@ def create_tasks_module(
     @bp.route(f"{tasks_prefix}/subjects", methods=["GET"])
     def list_subjects():
         conn = get_connection()
-        rows = conn.execute(f"SELECT DISTINCT subject FROM {tasks_table} ORDER BY subject ASC").fetchall()
+        rows = conn.execute(
+            f"SELECT DISTINCT subject FROM {tasks_table} WHERE user_id = ? ORDER BY subject ASC",
+            (session["user_id"],),
+        ).fetchall()
         conn.close()
         return jsonify([r["subject"] for r in rows])
 

@@ -4,3 +4,6 @@ tasks.db
 .venv/
 venv/
 .env
+# Respaldos de la base de datos
+*.bak.*
+tasks.db.bak.*
