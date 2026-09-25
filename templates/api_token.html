@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Token de API</title>
+<link rel="icon" type="image/svg+xml" href="{{ url_for('static', filename='logo.svg') }}">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+<link rel="stylesheet" href="{{ url_for('static', filename='auth.css') }}">
+</head>
+<body class="auth-body">
+
+<main class="auth-card">
+  <div class="auth-brand">
+    <img src="{{ url_for('static', filename='logo.svg') }}" alt="" class="brand-logo">
+    <h1>Token de API</h1>
+  </div>
+
+  <p class="auth-alt" style="text-align:left; margin:0 0 1.25rem;">
+    Usa este token para acceder a la API externa de solo lectura
+    (<code>/api/v1</code>) desde otra aplicación, enviándolo en la cabecera
+    <code>Authorization: Bearer &lt;token&gt;</code>.
+  </p>
+
+  <p id="token-status" class="auth-alt" style="text-align:left; margin:0 0 1rem;">
+    {% if has_token %}
+      Tienes un token activo. Si generas uno nuevo, el anterior dejará de funcionar.
+    {% else %}
+      No tienes ningún token activo todavía.
+    {% endif %}
+  </p>
+
+  <div id="token-result" hidden>
+    <p class="auth-success" style="margin-bottom:0.5rem;">
+      Copia tu token ahora: solo se muestra una vez.
+    </p>
+    <div style="display:flex; gap:0.5rem; align-items:stretch;">
+      <input id="token-value" type="text" readonly
+             style="flex:1; font:inherit; padding:0.6rem 0.7rem; border:1px solid var(--border); border-radius:8px; background:var(--bg); color:var(--fg);">
+      <button type="button" id="copy-btn" class="auth-submit" style="margin:0; white-space:nowrap;">Copiar</button>
+    </div>
+  </div>
+
+  <p id="token-error" class="auth-error" hidden></p>
+
+  <div style="display:flex; flex-direction:column; gap:0.75rem; margin-top:1.25rem;">
+    <button type="button" id="generate-btn" class="auth-submit" style="margin:0;">
+      Generar token nuevo
+    </button>
+    <button type="button" id="revoke-btn"
+            style="padding:0.65rem 1rem; font:inherit; font-weight:600; color:var(--fg); background:var(--panel); border:1px solid var(--border); border-radius:8px; cursor:pointer;"
+            {% if not has_token %}hidden{% endif %}>
+      Revocar token actual
+    </button>
+  </div>
+
+  <p class="auth-alt"><a href="{{ url_for('academic.page') }}">← Volver a la app</a></p>
+</main>
+
+<script>
+(function () {
+  const generateBtn = document.getElementById("generate-btn");
+  const revokeBtn = document.getElementById("revoke-btn");
+  const copyBtn = document.getElementById("copy-btn");
+  const resultBox = document.getElementById("token-result");
+  const tokenInput = document.getElementById("token-value");
+  const statusEl = document.getElementById("token-status");
+  const errorEl = document.getElementById("token-error");
+
+  function showError(msg) {
+    errorEl.textContent = msg;
+    errorEl.hidden = false;
+  }
+  function clearError() {
+    errorEl.hidden = true;
+    errorEl.textContent = "";
+  }
+
+  generateBtn.addEventListener("click", async function () {
+    clearError();
+    generateBtn.disabled = true;
+    try {
+      const res = await fetch("/api/token", { method: "POST" });
+      const data = await res.json().catch(() => ({}));
+      if (!res.ok) {
+        showError(data.error || "No se pudo generar el token.");
+        return;
+      }
+      tokenInput.value = data.token;
+      resultBox.hidden = false;
+      revokeBtn.hidden = false;
+      statusEl.textContent = "Token activo. Si generas otro, este dejará de funcionar.";
+    } catch (e) {
+      showError("Error de red al generar el token.");
+    } finally {
+      generateBtn.disabled = false;
+    }
+  });
+
+  revokeBtn.addEventListener("click", async function () {
+    clearError();
+    revokeBtn.disabled = true;
+    try {
+      const res = await fetch("/api/token", { method: "DELETE" });
+      const data = await res.json().catch(() => ({}));
+      if (!res.ok) {
+        showError(data.error || "No se pudo revocar el token.");
+        return;
+      }
+      resultBox.hidden = true;
+      tokenInput.value = "";
+      revokeBtn.hidden = true;
+      statusEl.textContent = "No tienes ningún token activo todavía.";
+    } catch (e) {
+      showError("Error de red al revocar el token.");
+    } finally {
+      revokeBtn.disabled = false;
+    }
+  });
+
+  copyBtn.addEventListener("click", async function () {
+    try {
+      await navigator.clipboard.writeText(tokenInput.value);
+      copyBtn.textContent = "Copiado";
+      setTimeout(() => { copyBtn.textContent = "Copiar"; }, 1500);
+    } catch (e) {
+      tokenInput.select();
+      document.execCommand("copy");
+    }
+  });
+})();
+</script>
+
+</body>
+</html>

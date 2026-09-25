@@ -31,6 +31,7 @@ from flask import (
 from werkzeug.security import check_password_hash, generate_password_hash
 
 from database import get_connection
+from nav import NAV_LINKS
 
 auth_bp = Blueprint("auth", __name__)
 
@@ -190,6 +191,16 @@ def resolve_token_user(auth_header):
     conn.close()
 
     return dict(row) if row else None
+
+
+def user_has_api_token(user_id: int) -> bool:
+    """Indica si el usuario tiene un `Token_API` activo (sin exponer el valor)."""
+    conn = get_connection()
+    row = conn.execute(
+        "SELECT 1 FROM api_tokens WHERE user_id = ?", (user_id,)
+    ).fetchone()
+    conn.close()
+    return row is not None
 
 
 def token_required(fn):
@@ -402,3 +413,20 @@ def delete_api_token():
     if revoke_api_token(user_id):
         return jsonify({"message": "Token revocado"}), 200
     return jsonify({"error": "No hay un token activo para revocar"}), 404
+
+
+@auth_bp.route("/api/token/manage", methods=["GET"])
+@login_required
+def manage_api_token():
+    """Página web para emitir/revocar el `Token_API` desde la interfaz.
+
+    Protegida por sesión: si no hay sesión, `login_required` redirige al login.
+    No muestra ningún token en claro (sólo se puede ver al emitirlo vía JS);
+    únicamente informa si ya existe uno activo.
+    """
+    has_token = user_has_api_token(session["user_id"])
+    return render_template(
+        "api_token.html",
+        has_token=has_token,
+        nav_links=NAV_LINKS,
+    )

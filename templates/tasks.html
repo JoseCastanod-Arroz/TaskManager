@@ -24,6 +24,7 @@
   </nav>
   <div class="header-actions">
     <button id="new-task-btn">+ Nueva tarea</button>
+    <a class="nav-link" href="{{ url_for('auth.manage_api_token') }}">Token API</a>
     <a class="nav-link" href="{{ url_for('auth.change_password') }}">Contraseña</a>
     <a class="nav-link logout-link" href="{{ url_for('auth.logout') }}">Salir</a>
   </div>
