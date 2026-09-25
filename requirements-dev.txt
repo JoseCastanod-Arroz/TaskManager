@@ -1,0 +1,7 @@
+# Dependencias de desarrollo/pruebas de TaskManager.
+# Incluye las de ejecución más las herramientas de test.
+# Instalar con:  pip install -r requirements-dev.txt
+-r requirements.txt
+
+pytest==8.3.4
+hypothesis==6.122.3

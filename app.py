@@ -2,7 +2,8 @@ import os
 from flask import Flask
 from calendar_module import calendar_bp, init_calendar_db
 from tasks_module import create_tasks_module
-from auth import auth_bp, init_auth_db
+from auth import auth_bp, init_auth_db, init_api_tokens_db
+from api_module import api_v1_bp
 from nav import NAV_LINKS
 
 app = Flask(__name__)
@@ -69,6 +70,7 @@ app.register_blueprint(academic_bp)
 app.register_blueprint(work_bp)
 app.register_blueprint(personal_bp)
 app.register_blueprint(calendar_bp)
+app.register_blueprint(api_v1_bp)
 
 
 def ask_port():
@@ -90,6 +92,9 @@ if __name__ == "__main__":
     # Primero la tabla de usuarios: las migraciones multiusuario de los
     # demás módulos asignan los datos existentes al primer usuario.
     init_auth_db()
+    # La tabla api_tokens tiene una clave foránea a users, así que se crea
+    # justo después de init_auth_db().
+    init_api_tokens_db()
     academic_bp.init_db()
     work_bp.init_db()
     personal_bp.init_db()

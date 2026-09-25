@@ -7,3 +7,6 @@ venv/
 # Respaldos de la base de datos
 *.bak.*
 tasks.db.bak.*
+# Artefactos de pruebas
+.pytest_cache/
+.hypothesis/

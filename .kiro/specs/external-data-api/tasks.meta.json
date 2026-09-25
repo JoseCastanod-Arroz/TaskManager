@@ -1,0 +1,554 @@
+{
+  "pbtResults": {
+    "2.3 Escribir prueba de propiedad para la longitud del token": {
+      "status": "passed",
+      "lastRunTimestamp": 1790304530781
+    },
+    "2.4 Escribir prueba de propiedad para la no recuperabilidad del claro": {
+      "status": "passed",
+      "lastRunTimestamp": 1790304550032
+    },
+    "2.9 Escribir prueba de propiedad para la rotación de tokens": {
+      "status": "passed",
+      "lastRunTimestamp": 1790304567893
+    },
+    "2.8 Escribir prueba de propiedad para el rechazo de credenciales inválidas": {
+      "status": "passed",
+      "lastRunTimestamp": 1790304599122
+    },
+    "2.10 Escribir prueba de propiedad para la revocación de tokens": {
+      "status": "passed",
+      "lastRunTimestamp": 1790304665432
+    },
+    "5.3 Escribir prueba de propiedad de aislamiento y orden de tareas": {
+      "status": "passed",
+      "lastRunTimestamp": 1790305233707
+    },
+    "5.4 Escribir prueba de propiedad de serialización completa con opcionales nulos": {
+      "status": "passed",
+      "lastRunTimestamp": 1790305250997
+    },
+    "5.5 Escribir prueba de propiedad de inclusión y orden de subtareas": {
+      "status": "passed",
+      "lastRunTimestamp": 1790305258596
+    },
+    "5.6 Escribir prueba de propiedad de filtrado por módulo": {
+      "status": "passed",
+      "lastRunTimestamp": 1790305264057
+    },
+    "6.3 Escribir prueba de propiedad de filtrado de eventos por mes": {
+      "status": "passed",
+      "lastRunTimestamp": 1790305409021
+    },
+    "6.4 Escribir prueba de propiedad de mes con formato no válido": {
+      "status": "passed",
+      "lastRunTimestamp": 1790305414437
+    },
+    "6.2 Escribir prueba de propiedad de aislamiento, serialización y orden de eventos": {
+      "status": "passed",
+      "lastRunTimestamp": 1790305431669
+    },
+    "7.2 Escribir prueba de propiedad de Content-Type y forma de la colección": {
+      "status": "passed",
+      "lastRunTimestamp": 1790305436129
+    }
+  },
+  "executionHistory": {
+    "1.1 Instalar y estructurar el entorno de pruebas": [
+      {
+        "executionId": "b57f9fa9-0380-4a23-a6ff-67a496818ad4",
+        "chatSessionId": "sess_7df6e7e7-d695-4bed-b4ae-e703b7f16f27",
+        "timestamp": 1790303426401
+      },
+      {
+        "executionId": "b57f9fa9-0380-4a23-a6ff-67a496818ad4",
+        "chatSessionId": "sess_7df6e7e7-d695-4bed-b4ae-e703b7f16f27",
+        "timestamp": 1790303434329
+      },
+      {
+        "executionId": "b57f9fa9-0380-4a23-a6ff-67a496818ad4",
+        "chatSessionId": "sess_7df6e7e7-d695-4bed-b4ae-e703b7f16f27",
+        "timestamp": 1790303794652
+      }
+    ],
+    "2.1 Implementar `init_api_tokens_db()` y `_hash_token(raw_token)`": [
+      {
+        "executionId": "b57f9fa9-0380-4a23-a6ff-67a496818ad4",
+        "chatSessionId": "sess_7df6e7e7-d695-4bed-b4ae-e703b7f16f27",
+        "timestamp": 1790303426515
+      },
+      {
+        "executionId": "b57f9fa9-0380-4a23-a6ff-67a496818ad4",
+        "chatSessionId": "sess_7df6e7e7-d695-4bed-b4ae-e703b7f16f27",
+        "timestamp": 1790303798246
+      },
+      {
+        "executionId": "b57f9fa9-0380-4a23-a6ff-67a496818ad4",
+        "chatSessionId": "sess_7df6e7e7-d695-4bed-b4ae-e703b7f16f27",
+        "timestamp": 1790303870079
+      }
+    ],
+    "2.2 Implementar `generate_api_token(user_id)` con rotación atómica": [
+      {
+        "executionId": "b57f9fa9-0380-4a23-a6ff-67a496818ad4",
+        "chatSessionId": "sess_7df6e7e7-d695-4bed-b4ae-e703b7f16f27",
+        "timestamp": 1790303426625
+      },
+      {
+        "executionId": "b57f9fa9-0380-4a23-a6ff-67a496818ad4",
+        "chatSessionId": "sess_7df6e7e7-d695-4bed-b4ae-e703b7f16f27",
+        "timestamp": 1790303874160
+      },
+      {
+        "executionId": "b57f9fa9-0380-4a23-a6ff-67a496818ad4",
+        "chatSessionId": "sess_7df6e7e7-d695-4bed-b4ae-e703b7f16f27",
+        "timestamp": 1790303936849
+      }
+    ],
+    "2.5 Implementar `revoke_api_token(user_id)`": [
+      {
+        "executionId": "b57f9fa9-0380-4a23-a6ff-67a496818ad4",
+        "chatSessionId": "sess_7df6e7e7-d695-4bed-b4ae-e703b7f16f27",
+        "timestamp": 1790303426692
+      },
+      {
+        "executionId": "b57f9fa9-0380-4a23-a6ff-67a496818ad4",
+        "chatSessionId": "sess_7df6e7e7-d695-4bed-b4ae-e703b7f16f27",
+        "timestamp": 1790303875550
+      },
+      {
+        "executionId": "b57f9fa9-0380-4a23-a6ff-67a496818ad4",
+        "chatSessionId": "sess_7df6e7e7-d695-4bed-b4ae-e703b7f16f27",
+        "timestamp": 1790303980527
+      },
+      {
+        "executionId": "7f31fc4a-4cf0-40a3-8890-97e8ad74285e",
+        "chatSessionId": "sess_7df6e7e7-d695-4bed-b4ae-e703b7f16f27",
+        "timestamp": 1790304293150
+      }
+    ],
+    "2.6 Implementar `resolve_token_user(auth_header)` y el decorador `token_required`": [
+      {
+        "executionId": "b57f9fa9-0380-4a23-a6ff-67a496818ad4",
+        "chatSessionId": "sess_7df6e7e7-d695-4bed-b4ae-e703b7f16f27",
+        "timestamp": 1790303426729
+      },
+      {
+        "executionId": "b57f9fa9-0380-4a23-a6ff-67a496818ad4",
+        "chatSessionId": "sess_7df6e7e7-d695-4bed-b4ae-e703b7f16f27",
+        "timestamp": 1790303876568
+      },
+      {
+        "executionId": "7f31fc4a-4cf0-40a3-8890-97e8ad74285e",
+        "chatSessionId": "sess_7df6e7e7-d695-4bed-b4ae-e703b7f16f27",
+        "timestamp": 1790304297047
+      },
+      {
+        "executionId": "7f31fc4a-4cf0-40a3-8890-97e8ad74285e",
+        "chatSessionId": "sess_7df6e7e7-d695-4bed-b4ae-e703b7f16f27",
+        "timestamp": 1790304363813
+      }
+    ],
+    "3. Checkpoint - Asegurar que todas las pruebas de tokens pasan": [
+      {
+        "executionId": "b57f9fa9-0380-4a23-a6ff-67a496818ad4",
+        "chatSessionId": "sess_7df6e7e7-d695-4bed-b4ae-e703b7f16f27",
+        "timestamp": 1790303426768
+      },
+      {
+        "executionId": "7f31fc4a-4cf0-40a3-8890-97e8ad74285e",
+        "chatSessionId": "sess_7df6e7e7-d695-4bed-b4ae-e703b7f16f27",
+        "timestamp": 1790304682705
+      },
+      {
+        "executionId": "7f31fc4a-4cf0-40a3-8890-97e8ad74285e",
+        "chatSessionId": "sess_7df6e7e7-d695-4bed-b4ae-e703b7f16f27",
+        "timestamp": 1790304715897
+      }
+    ],
+    "4.1 Implementar `POST /api/token` y `DELETE /api/token`": [
+      {
+        "executionId": "b57f9fa9-0380-4a23-a6ff-67a496818ad4",
+        "chatSessionId": "sess_7df6e7e7-d695-4bed-b4ae-e703b7f16f27",
+        "timestamp": 1790303426811
+      },
+      {
+        "executionId": "7f31fc4a-4cf0-40a3-8890-97e8ad74285e",
+        "chatSessionId": "sess_7df6e7e7-d695-4bed-b4ae-e703b7f16f27",
+        "timestamp": 1790304372213
+      },
+      {
+        "executionId": "7f31fc4a-4cf0-40a3-8890-97e8ad74285e",
+        "chatSessionId": "sess_7df6e7e7-d695-4bed-b4ae-e703b7f16f27",
+        "timestamp": 1790304457412
+      }
+    ],
+    "5.1 Crear `api_v1_bp` y el mapa `TASK_MODULES`, con serialización de tareas/subtareas": [
+      {
+        "executionId": "b57f9fa9-0380-4a23-a6ff-67a496818ad4",
+        "chatSessionId": "sess_7df6e7e7-d695-4bed-b4ae-e703b7f16f27",
+        "timestamp": 1790303426846
+      },
+      {
+        "executionId": "7f31fc4a-4cf0-40a3-8890-97e8ad74285e",
+        "chatSessionId": "sess_7df6e7e7-d695-4bed-b4ae-e703b7f16f27",
+        "timestamp": 1790304719951
+      },
+      {
+        "executionId": "7f31fc4a-4cf0-40a3-8890-97e8ad74285e",
+        "chatSessionId": "sess_7df6e7e7-d695-4bed-b4ae-e703b7f16f27",
+        "timestamp": 1790304814962
+      }
+    ],
+    "5.2 Implementar `GET /api/v1/tasks` con agregación, filtro y orden": [
+      {
+        "executionId": "b57f9fa9-0380-4a23-a6ff-67a496818ad4",
+        "chatSessionId": "sess_7df6e7e7-d695-4bed-b4ae-e703b7f16f27",
+        "timestamp": 1790303426886
+      },
+      {
+        "executionId": "7f31fc4a-4cf0-40a3-8890-97e8ad74285e",
+        "chatSessionId": "sess_7df6e7e7-d695-4bed-b4ae-e703b7f16f27",
+        "timestamp": 1790304819317
+      },
+      {
+        "executionId": "7f31fc4a-4cf0-40a3-8890-97e8ad74285e",
+        "chatSessionId": "sess_7df6e7e7-d695-4bed-b4ae-e703b7f16f27",
+        "timestamp": 1790304944922
+      }
+    ],
+    "6.1 Implementar el endpoint de eventos con validación de mes, filtro y orden": [
+      {
+        "executionId": "b57f9fa9-0380-4a23-a6ff-67a496818ad4",
+        "chatSessionId": "sess_7df6e7e7-d695-4bed-b4ae-e703b7f16f27",
+        "timestamp": 1790303426933
+      },
+      {
+        "executionId": "7f31fc4a-4cf0-40a3-8890-97e8ad74285e",
+        "chatSessionId": "sess_7df6e7e7-d695-4bed-b4ae-e703b7f16f27",
+        "timestamp": 1790304945911
+      },
+      {
+        "executionId": "7f31fc4a-4cf0-40a3-8890-97e8ad74285e",
+        "chatSessionId": "sess_7df6e7e7-d695-4bed-b4ae-e703b7f16f27",
+        "timestamp": 1790305063085
+      }
+    ],
+    "7.1 Registrar manejadores 404/500 y garantizar `Content-Type: application/json`": [
+      {
+        "executionId": "b57f9fa9-0380-4a23-a6ff-67a496818ad4",
+        "chatSessionId": "sess_7df6e7e7-d695-4bed-b4ae-e703b7f16f27",
+        "timestamp": 1790303426967
+      },
+      {
+        "executionId": "7f31fc4a-4cf0-40a3-8890-97e8ad74285e",
+        "chatSessionId": "sess_7df6e7e7-d695-4bed-b4ae-e703b7f16f27",
+        "timestamp": 1790305070349
+      },
+      {
+        "executionId": "7f31fc4a-4cf0-40a3-8890-97e8ad74285e",
+        "chatSessionId": "sess_7df6e7e7-d695-4bed-b4ae-e703b7f16f27",
+        "timestamp": 1790305284775
+      }
+    ],
+    "8.1 Registrar `api_v1_bp` e invocar `init_api_tokens_db()`": [
+      {
+        "executionId": "b57f9fa9-0380-4a23-a6ff-67a496818ad4",
+        "chatSessionId": "sess_7df6e7e7-d695-4bed-b4ae-e703b7f16f27",
+        "timestamp": 1790303427065
+      },
+      {
+        "executionId": "7f31fc4a-4cf0-40a3-8890-97e8ad74285e",
+        "chatSessionId": "sess_7df6e7e7-d695-4bed-b4ae-e703b7f16f27",
+        "timestamp": 1790305459118
+      },
+      {
+        "executionId": "7f31fc4a-4cf0-40a3-8890-97e8ad74285e",
+        "chatSessionId": "sess_7df6e7e7-d695-4bed-b4ae-e703b7f16f27",
+        "timestamp": 1790306576312
+      }
+    ],
+    "9. Checkpoint final - Asegurar que todas las pruebas pasan": [
+      {
+        "executionId": "b57f9fa9-0380-4a23-a6ff-67a496818ad4",
+        "chatSessionId": "sess_7df6e7e7-d695-4bed-b4ae-e703b7f16f27",
+        "timestamp": 1790303427106
+      },
+      {
+        "executionId": "7f31fc4a-4cf0-40a3-8890-97e8ad74285e",
+        "chatSessionId": "sess_7df6e7e7-d695-4bed-b4ae-e703b7f16f27",
+        "timestamp": 1790306695845
+      },
+      {
+        "executionId": "7f31fc4a-4cf0-40a3-8890-97e8ad74285e",
+        "chatSessionId": "sess_7df6e7e7-d695-4bed-b4ae-e703b7f16f27",
+        "timestamp": 1790306884698
+      }
+    ],
+    "1. Configurar el entorno de pruebas (pytest + Hypothesis)": [
+      {
+        "executionId": "b57f9fa9-0380-4a23-a6ff-67a496818ad4",
+        "chatSessionId": "sess_7df6e7e7-d695-4bed-b4ae-e703b7f16f27",
+        "timestamp": 1790303794703
+      }
+    ],
+    "2. Crear la tabla `api_tokens` y los ayudantes de hashing/resolución en `auth.py`": [
+      {
+        "executionId": "7f31fc4a-4cf0-40a3-8890-97e8ad74285e",
+        "chatSessionId": "sess_7df6e7e7-d695-4bed-b4ae-e703b7f16f27",
+        "timestamp": 1790304363883
+      }
+    ],
+    "4. Implementar los endpoints de emisión/revocación en `auth_bp` (protegidos por sesión)": [
+      {
+        "executionId": "7f31fc4a-4cf0-40a3-8890-97e8ad74285e",
+        "chatSessionId": "sess_7df6e7e7-d695-4bed-b4ae-e703b7f16f27",
+        "timestamp": 1790304457460
+      }
+    ],
+    "2.3 Escribir prueba de propiedad para la longitud del token": [
+      {
+        "executionId": "7f31fc4a-4cf0-40a3-8890-97e8ad74285e",
+        "chatSessionId": "sess_7df6e7e7-d695-4bed-b4ae-e703b7f16f27",
+        "timestamp": 1790304482558
+      },
+      {
+        "executionId": "7f31fc4a-4cf0-40a3-8890-97e8ad74285e",
+        "chatSessionId": "sess_7df6e7e7-d695-4bed-b4ae-e703b7f16f27",
+        "timestamp": 1790304617804
+      }
+    ],
+    "2.4 Escribir prueba de propiedad para la no recuperabilidad del claro": [
+      {
+        "executionId": "7f31fc4a-4cf0-40a3-8890-97e8ad74285e",
+        "chatSessionId": "sess_7df6e7e7-d695-4bed-b4ae-e703b7f16f27",
+        "timestamp": 1790304484008
+      },
+      {
+        "executionId": "7f31fc4a-4cf0-40a3-8890-97e8ad74285e",
+        "chatSessionId": "sess_7df6e7e7-d695-4bed-b4ae-e703b7f16f27",
+        "timestamp": 1790304618218
+      }
+    ],
+    "2.7 Escribir prueba de propiedad para el round-trip emisión→resolución": [
+      {
+        "executionId": "7f31fc4a-4cf0-40a3-8890-97e8ad74285e",
+        "chatSessionId": "sess_7df6e7e7-d695-4bed-b4ae-e703b7f16f27",
+        "timestamp": 1790304485416
+      },
+      {
+        "executionId": "7f31fc4a-4cf0-40a3-8890-97e8ad74285e",
+        "chatSessionId": "sess_7df6e7e7-d695-4bed-b4ae-e703b7f16f27",
+        "timestamp": 1790304615346
+      }
+    ],
+    "2.8 Escribir prueba de propiedad para el rechazo de credenciales inválidas": [
+      {
+        "executionId": "7f31fc4a-4cf0-40a3-8890-97e8ad74285e",
+        "chatSessionId": "sess_7df6e7e7-d695-4bed-b4ae-e703b7f16f27",
+        "timestamp": 1790304486804
+      },
+      {
+        "executionId": "7f31fc4a-4cf0-40a3-8890-97e8ad74285e",
+        "chatSessionId": "sess_7df6e7e7-d695-4bed-b4ae-e703b7f16f27",
+        "timestamp": 1790304613945
+      }
+    ],
+    "2.9 Escribir prueba de propiedad para la rotación de tokens": [
+      {
+        "executionId": "7f31fc4a-4cf0-40a3-8890-97e8ad74285e",
+        "chatSessionId": "sess_7df6e7e7-d695-4bed-b4ae-e703b7f16f27",
+        "timestamp": 1790304488078
+      },
+      {
+        "executionId": "7f31fc4a-4cf0-40a3-8890-97e8ad74285e",
+        "chatSessionId": "sess_7df6e7e7-d695-4bed-b4ae-e703b7f16f27",
+        "timestamp": 1790304619101
+      }
+    ],
+    "2.10 Escribir prueba de propiedad para la revocación de tokens": [
+      {
+        "executionId": "7f31fc4a-4cf0-40a3-8890-97e8ad74285e",
+        "chatSessionId": "sess_7df6e7e7-d695-4bed-b4ae-e703b7f16f27",
+        "timestamp": 1790304620521
+      },
+      {
+        "executionId": "7f31fc4a-4cf0-40a3-8890-97e8ad74285e",
+        "chatSessionId": "sess_7df6e7e7-d695-4bed-b4ae-e703b7f16f27",
+        "timestamp": 1790304675924
+      }
+    ],
+    "4.2 Escribir pruebas de ejemplo/integración de emisión y revocación": [
+      {
+        "executionId": "7f31fc4a-4cf0-40a3-8890-97e8ad74285e",
+        "chatSessionId": "sess_7df6e7e7-d695-4bed-b4ae-e703b7f16f27",
+        "timestamp": 1790304721283
+      },
+      {
+        "executionId": "7f31fc4a-4cf0-40a3-8890-97e8ad74285e",
+        "chatSessionId": "sess_7df6e7e7-d695-4bed-b4ae-e703b7f16f27",
+        "timestamp": 1790304813861
+      }
+    ],
+    "5. Crear `api_module.py` con el blueprint `api_v1_bp` y el endpoint de tareas": [
+      {
+        "executionId": "7f31fc4a-4cf0-40a3-8890-97e8ad74285e",
+        "chatSessionId": "sess_7df6e7e7-d695-4bed-b4ae-e703b7f16f27",
+        "timestamp": 1790304944974
+      }
+    ],
+    "6. Implementar `GET /api/v1/events` en `api_v1_bp`": [
+      {
+        "executionId": "7f31fc4a-4cf0-40a3-8890-97e8ad74285e",
+        "chatSessionId": "sess_7df6e7e7-d695-4bed-b4ae-e703b7f16f27",
+        "timestamp": 1790305063137
+      }
+    ],
+    "5.3 Escribir prueba de propiedad de aislamiento y orden de tareas": [
+      {
+        "executionId": "7f31fc4a-4cf0-40a3-8890-97e8ad74285e",
+        "chatSessionId": "sess_7df6e7e7-d695-4bed-b4ae-e703b7f16f27",
+        "timestamp": 1790305071680
+      },
+      {
+        "executionId": "7f31fc4a-4cf0-40a3-8890-97e8ad74285e",
+        "chatSessionId": "sess_7df6e7e7-d695-4bed-b4ae-e703b7f16f27",
+        "timestamp": 1790305279427
+      }
+    ],
+    "5.4 Escribir prueba de propiedad de serialización completa con opcionales nulos": [
+      {
+        "executionId": "7f31fc4a-4cf0-40a3-8890-97e8ad74285e",
+        "chatSessionId": "sess_7df6e7e7-d695-4bed-b4ae-e703b7f16f27",
+        "timestamp": 1790305073129
+      },
+      {
+        "executionId": "7f31fc4a-4cf0-40a3-8890-97e8ad74285e",
+        "chatSessionId": "sess_7df6e7e7-d695-4bed-b4ae-e703b7f16f27",
+        "timestamp": 1790305280824
+      }
+    ],
+    "5.5 Escribir prueba de propiedad de inclusión y orden de subtareas": [
+      {
+        "executionId": "7f31fc4a-4cf0-40a3-8890-97e8ad74285e",
+        "chatSessionId": "sess_7df6e7e7-d695-4bed-b4ae-e703b7f16f27",
+        "timestamp": 1790305074534
+      },
+      {
+        "executionId": "7f31fc4a-4cf0-40a3-8890-97e8ad74285e",
+        "chatSessionId": "sess_7df6e7e7-d695-4bed-b4ae-e703b7f16f27",
+        "timestamp": 1790305282274
+      }
+    ],
+    "5.6 Escribir prueba de propiedad de filtrado por módulo": [
+      {
+        "executionId": "7f31fc4a-4cf0-40a3-8890-97e8ad74285e",
+        "chatSessionId": "sess_7df6e7e7-d695-4bed-b4ae-e703b7f16f27",
+        "timestamp": 1790305075816
+      },
+      {
+        "executionId": "7f31fc4a-4cf0-40a3-8890-97e8ad74285e",
+        "chatSessionId": "sess_7df6e7e7-d695-4bed-b4ae-e703b7f16f27",
+        "timestamp": 1790305283660
+      }
+    ],
+    "7. Implementar los manejadores de error a nivel de blueprint y el sobre de respuesta": [
+      {
+        "executionId": "7f31fc4a-4cf0-40a3-8890-97e8ad74285e",
+        "chatSessionId": "sess_7df6e7e7-d695-4bed-b4ae-e703b7f16f27",
+        "timestamp": 1790305284840
+      }
+    ],
+    "5.7 Escribir prueba de propiedad de módulo no válido": [
+      {
+        "executionId": "7f31fc4a-4cf0-40a3-8890-97e8ad74285e",
+        "chatSessionId": "sess_7df6e7e7-d695-4bed-b4ae-e703b7f16f27",
+        "timestamp": 1790305291476
+      },
+      {
+        "executionId": "7f31fc4a-4cf0-40a3-8890-97e8ad74285e",
+        "chatSessionId": "sess_7df6e7e7-d695-4bed-b4ae-e703b7f16f27",
+        "timestamp": 1790305449063
+      }
+    ],
+    "6.2 Escribir prueba de propiedad de aislamiento, serialización y orden de eventos": [
+      {
+        "executionId": "7f31fc4a-4cf0-40a3-8890-97e8ad74285e",
+        "chatSessionId": "sess_7df6e7e7-d695-4bed-b4ae-e703b7f16f27",
+        "timestamp": 1790305293290
+      },
+      {
+        "executionId": "7f31fc4a-4cf0-40a3-8890-97e8ad74285e",
+        "chatSessionId": "sess_7df6e7e7-d695-4bed-b4ae-e703b7f16f27",
+        "timestamp": 1790305450461
+      }
+    ],
+    "6.3 Escribir prueba de propiedad de filtrado de eventos por mes": [
+      {
+        "executionId": "7f31fc4a-4cf0-40a3-8890-97e8ad74285e",
+        "chatSessionId": "sess_7df6e7e7-d695-4bed-b4ae-e703b7f16f27",
+        "timestamp": 1790305294272
+      },
+      {
+        "executionId": "7f31fc4a-4cf0-40a3-8890-97e8ad74285e",
+        "chatSessionId": "sess_7df6e7e7-d695-4bed-b4ae-e703b7f16f27",
+        "timestamp": 1790305451832
+      }
+    ],
+    "6.4 Escribir prueba de propiedad de mes con formato no válido": [
+      {
+        "executionId": "7f31fc4a-4cf0-40a3-8890-97e8ad74285e",
+        "chatSessionId": "sess_7df6e7e7-d695-4bed-b4ae-e703b7f16f27",
+        "timestamp": 1790305295724
+      },
+      {
+        "executionId": "7f31fc4a-4cf0-40a3-8890-97e8ad74285e",
+        "chatSessionId": "sess_7df6e7e7-d695-4bed-b4ae-e703b7f16f27",
+        "timestamp": 1790305453233
+      }
+    ],
+    "7.2 Escribir prueba de propiedad de Content-Type y forma de la colección": [
+      {
+        "executionId": "7f31fc4a-4cf0-40a3-8890-97e8ad74285e",
+        "chatSessionId": "sess_7df6e7e7-d695-4bed-b4ae-e703b7f16f27",
+        "timestamp": 1790305296838
+      },
+      {
+        "executionId": "7f31fc4a-4cf0-40a3-8890-97e8ad74285e",
+        "chatSessionId": "sess_7df6e7e7-d695-4bed-b4ae-e703b7f16f27",
+        "timestamp": 1790305454363
+      }
+    ],
+    "7.3 Escribir pruebas de ejemplo/integración de rutas y errores de servidor": [
+      {
+        "executionId": "7f31fc4a-4cf0-40a3-8890-97e8ad74285e",
+        "chatSessionId": "sess_7df6e7e7-d695-4bed-b4ae-e703b7f16f27",
+        "timestamp": 1790305460383
+      },
+      {
+        "executionId": "7f31fc4a-4cf0-40a3-8890-97e8ad74285e",
+        "chatSessionId": "sess_7df6e7e7-d695-4bed-b4ae-e703b7f16f27",
+        "timestamp": 1790306577640
+      }
+    ],
+    "8. Cablear el nuevo blueprint y la inicialización en `app.py`": [
+      {
+        "executionId": "7f31fc4a-4cf0-40a3-8890-97e8ad74285e",
+        "chatSessionId": "sess_7df6e7e7-d695-4bed-b4ae-e703b7f16f27",
+        "timestamp": 1790306576407
+      }
+    ],
+    "8.2 Escribir prueba de regresión de compatibilidad de los endpoints de sesión": [
+      {
+        "executionId": "7f31fc4a-4cf0-40a3-8890-97e8ad74285e",
+        "chatSessionId": "sess_7df6e7e7-d695-4bed-b4ae-e703b7f16f27",
+        "timestamp": 1790306581906
+      },
+      {
+        "executionId": "7f31fc4a-4cf0-40a3-8890-97e8ad74285e",
+        "chatSessionId": "sess_7df6e7e7-d695-4bed-b4ae-e703b7f16f27",
+        "timestamp": 1790306694649
+      }
+    ]
+  }
+}
