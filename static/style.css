@@ -108,6 +108,9 @@ button:focus-visible, input:focus-visible, select:focus-visible, textarea:focus-
   background: var(--accent);
   border-color: var(--accent);
   color: #FFFFFF;
+  padding: 0.4rem 0.85rem;
+  border-radius: var(--radius);
+  font-size: 0.85rem;
 }
 
 #new-task-btn:hover {
