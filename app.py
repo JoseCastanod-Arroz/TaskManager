@@ -1,6 +1,7 @@
 import os
 from flask import Flask
 from calendar_module import calendar_bp, init_calendar_db
+from line_module import line_bp
 from tasks_module import create_tasks_module
 from auth import auth_bp, init_auth_db, init_api_tokens_db
 from api_module import api_v1_bp
@@ -70,6 +71,7 @@ app.register_blueprint(academic_bp)
 app.register_blueprint(work_bp)
 app.register_blueprint(personal_bp)
 app.register_blueprint(calendar_bp)
+app.register_blueprint(line_bp)
 app.register_blueprint(api_v1_bp)
 
 
@@ -99,6 +101,9 @@ if __name__ == "__main__":
     work_bp.init_db()
     personal_bp.init_db()
     init_calendar_db()
+    # Las tablas de la línea del tiempo referencian a users y leen las tablas
+    # de tareas, así que se inicializan al final.
+    line_bp.init_db()
     port = ask_port()
     print(f"Servidor disponible en http://127.0.0.1:{port}")
     app.run(host="0.0.0.0", port=port, debug=False)

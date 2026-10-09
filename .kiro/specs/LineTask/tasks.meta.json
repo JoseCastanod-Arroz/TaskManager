@@ -1,0 +1,387 @@
+{
+  "pbtResults": {},
+  "executionHistory": {
+    "1.1 Define blueprint, module maps, and `init_db()` for the new tables": [
+      {
+        "executionId": "428c46ac-71b0-49a2-8f25-50dc8daf7770",
+        "chatSessionId": "sess_035a00cf-78cd-4784-b651-16134198f2a1",
+        "timestamp": 1791565432264
+      },
+      {
+        "executionId": "428c46ac-71b0-49a2-8f25-50dc8daf7770",
+        "chatSessionId": "sess_035a00cf-78cd-4784-b651-16134198f2a1",
+        "timestamp": 1791565439029
+      },
+      {
+        "executionId": "428c46ac-71b0-49a2-8f25-50dc8daf7770",
+        "chatSessionId": "sess_035a00cf-78cd-4784-b651-16134198f2a1",
+        "timestamp": 1791565588229
+      }
+    ],
+    "1.2 Add the session guard `before_request`": [
+      {
+        "executionId": "428c46ac-71b0-49a2-8f25-50dc8daf7770",
+        "chatSessionId": "sess_035a00cf-78cd-4784-b651-16134198f2a1",
+        "timestamp": 1791565432345
+      },
+      {
+        "executionId": "428c46ac-71b0-49a2-8f25-50dc8daf7770",
+        "chatSessionId": "sess_035a00cf-78cd-4784-b651-16134198f2a1",
+        "timestamp": 1791565593696
+      },
+      {
+        "executionId": "428c46ac-71b0-49a2-8f25-50dc8daf7770",
+        "chatSessionId": "sess_035a00cf-78cd-4784-b651-16134198f2a1",
+        "timestamp": 1791565649011
+      }
+    ],
+    "2.1 Implement `get_or_create_line` and `task_exists`": [
+      {
+        "executionId": "428c46ac-71b0-49a2-8f25-50dc8daf7770",
+        "chatSessionId": "sess_035a00cf-78cd-4784-b651-16134198f2a1",
+        "timestamp": 1791565432397
+      },
+      {
+        "executionId": "428c46ac-71b0-49a2-8f25-50dc8daf7770",
+        "chatSessionId": "sess_035a00cf-78cd-4784-b651-16134198f2a1",
+        "timestamp": 1791565672645
+      },
+      {
+        "executionId": "428c46ac-71b0-49a2-8f25-50dc8daf7770",
+        "chatSessionId": "sess_035a00cf-78cd-4784-b651-16134198f2a1",
+        "timestamp": 1791565770362
+      }
+    ],
+    "2.2 Implement `resolve_line` and `sweep_dangling`": [
+      {
+        "executionId": "428c46ac-71b0-49a2-8f25-50dc8daf7770",
+        "chatSessionId": "sess_035a00cf-78cd-4784-b651-16134198f2a1",
+        "timestamp": 1791565432435
+      },
+      {
+        "executionId": "428c46ac-71b0-49a2-8f25-50dc8daf7770",
+        "chatSessionId": "sess_035a00cf-78cd-4784-b651-16134198f2a1",
+        "timestamp": 1791565773352
+      },
+      {
+        "executionId": "428c46ac-71b0-49a2-8f25-50dc8daf7770",
+        "chatSessionId": "sess_035a00cf-78cd-4784-b651-16134198f2a1",
+        "timestamp": 1791565922214
+      }
+    ],
+    "2.3 Implement position normalization helper": [
+      {
+        "executionId": "428c46ac-71b0-49a2-8f25-50dc8daf7770",
+        "chatSessionId": "sess_035a00cf-78cd-4784-b651-16134198f2a1",
+        "timestamp": 1791565432510
+      },
+      {
+        "executionId": "428c46ac-71b0-49a2-8f25-50dc8daf7770",
+        "chatSessionId": "sess_035a00cf-78cd-4784-b651-16134198f2a1",
+        "timestamp": 1791565924834
+      },
+      {
+        "executionId": "428c46ac-71b0-49a2-8f25-50dc8daf7770",
+        "chatSessionId": "sess_035a00cf-78cd-4784-b651-16134198f2a1",
+        "timestamp": 1791566040267
+      }
+    ],
+    "3. Checkpoint - core logic": [
+      {
+        "executionId": "428c46ac-71b0-49a2-8f25-50dc8daf7770",
+        "chatSessionId": "sess_035a00cf-78cd-4784-b651-16134198f2a1",
+        "timestamp": 1791565432534
+      },
+      {
+        "executionId": "428c46ac-71b0-49a2-8f25-50dc8daf7770",
+        "chatSessionId": "sess_035a00cf-78cd-4784-b651-16134198f2a1",
+        "timestamp": 1791566048807
+      },
+      {
+        "executionId": "428c46ac-71b0-49a2-8f25-50dc8daf7770",
+        "chatSessionId": "sess_035a00cf-78cd-4784-b651-16134198f2a1",
+        "timestamp": 1791566142140
+      }
+    ],
+    "4.1 Implement `GET /api/line`": [
+      {
+        "executionId": "428c46ac-71b0-49a2-8f25-50dc8daf7770",
+        "chatSessionId": "sess_035a00cf-78cd-4784-b651-16134198f2a1",
+        "timestamp": 1791565432570
+      },
+      {
+        "executionId": "428c46ac-71b0-49a2-8f25-50dc8daf7770",
+        "chatSessionId": "sess_035a00cf-78cd-4784-b651-16134198f2a1",
+        "timestamp": 1791566149287
+      },
+      {
+        "executionId": "428c46ac-71b0-49a2-8f25-50dc8daf7770",
+        "chatSessionId": "sess_035a00cf-78cd-4784-b651-16134198f2a1",
+        "timestamp": 1791566248751
+      }
+    ],
+    "4.2 Implement `GET /api/line/available`": [
+      {
+        "executionId": "428c46ac-71b0-49a2-8f25-50dc8daf7770",
+        "chatSessionId": "sess_035a00cf-78cd-4784-b651-16134198f2a1",
+        "timestamp": 1791565432611
+      },
+      {
+        "executionId": "428c46ac-71b0-49a2-8f25-50dc8daf7770",
+        "chatSessionId": "sess_035a00cf-78cd-4784-b651-16134198f2a1",
+        "timestamp": 1791566251481
+      },
+      {
+        "executionId": "428c46ac-71b0-49a2-8f25-50dc8daf7770",
+        "chatSessionId": "sess_035a00cf-78cd-4784-b651-16134198f2a1",
+        "timestamp": 1791566361816
+      }
+    ],
+    "5.1 Implement `POST /api/line/items`": [
+      {
+        "executionId": "428c46ac-71b0-49a2-8f25-50dc8daf7770",
+        "chatSessionId": "sess_035a00cf-78cd-4784-b651-16134198f2a1",
+        "timestamp": 1791565432645
+      },
+      {
+        "executionId": "428c46ac-71b0-49a2-8f25-50dc8daf7770",
+        "chatSessionId": "sess_035a00cf-78cd-4784-b651-16134198f2a1",
+        "timestamp": 1791566365890
+      },
+      {
+        "executionId": "428c46ac-71b0-49a2-8f25-50dc8daf7770",
+        "chatSessionId": "sess_035a00cf-78cd-4784-b651-16134198f2a1",
+        "timestamp": 1791566568857
+      }
+    ],
+    "5.2 Implement `DELETE /api/line/items/<int:item_id>`": [
+      {
+        "executionId": "428c46ac-71b0-49a2-8f25-50dc8daf7770",
+        "chatSessionId": "sess_035a00cf-78cd-4784-b651-16134198f2a1",
+        "timestamp": 1791565432670
+      },
+      {
+        "executionId": "428c46ac-71b0-49a2-8f25-50dc8daf7770",
+        "chatSessionId": "sess_035a00cf-78cd-4784-b651-16134198f2a1",
+        "timestamp": 1791566574751
+      },
+      {
+        "executionId": "428c46ac-71b0-49a2-8f25-50dc8daf7770",
+        "chatSessionId": "sess_035a00cf-78cd-4784-b651-16134198f2a1",
+        "timestamp": 1791566673971
+      }
+    ],
+    "5.3 Implement `PUT /api/line/order`": [
+      {
+        "executionId": "428c46ac-71b0-49a2-8f25-50dc8daf7770",
+        "chatSessionId": "sess_035a00cf-78cd-4784-b651-16134198f2a1",
+        "timestamp": 1791565432710
+      },
+      {
+        "executionId": "428c46ac-71b0-49a2-8f25-50dc8daf7770",
+        "chatSessionId": "sess_035a00cf-78cd-4784-b651-16134198f2a1",
+        "timestamp": 1791566681756
+      },
+      {
+        "executionId": "428c46ac-71b0-49a2-8f25-50dc8daf7770",
+        "chatSessionId": "sess_035a00cf-78cd-4784-b651-16134198f2a1",
+        "timestamp": 1791566808822
+      }
+    ],
+    "6.1 Implement `GET /linea` page route": [
+      {
+        "executionId": "428c46ac-71b0-49a2-8f25-50dc8daf7770",
+        "chatSessionId": "sess_035a00cf-78cd-4784-b651-16134198f2a1",
+        "timestamp": 1791565432744
+      },
+      {
+        "executionId": "428c46ac-71b0-49a2-8f25-50dc8daf7770",
+        "chatSessionId": "sess_035a00cf-78cd-4784-b651-16134198f2a1",
+        "timestamp": 1791566812577
+      },
+      {
+        "executionId": "428c46ac-71b0-49a2-8f25-50dc8daf7770",
+        "chatSessionId": "sess_035a00cf-78cd-4784-b651-16134198f2a1",
+        "timestamp": 1791566897409
+      }
+    ],
+    "6.2 Register the blueprint and init hook in `app.py`": [
+      {
+        "executionId": "428c46ac-71b0-49a2-8f25-50dc8daf7770",
+        "chatSessionId": "sess_035a00cf-78cd-4784-b651-16134198f2a1",
+        "timestamp": 1791565432770
+      },
+      {
+        "executionId": "428c46ac-71b0-49a2-8f25-50dc8daf7770",
+        "chatSessionId": "sess_035a00cf-78cd-4784-b651-16134198f2a1",
+        "timestamp": 1791566820323
+      },
+      {
+        "executionId": "428c46ac-71b0-49a2-8f25-50dc8daf7770",
+        "chatSessionId": "sess_035a00cf-78cd-4784-b651-16134198f2a1",
+        "timestamp": 1791566900270
+      }
+    ],
+    "6.3 Add the nav link in `nav.py`": [
+      {
+        "executionId": "428c46ac-71b0-49a2-8f25-50dc8daf7770",
+        "chatSessionId": "sess_035a00cf-78cd-4784-b651-16134198f2a1",
+        "timestamp": 1791565432814
+      },
+      {
+        "executionId": "428c46ac-71b0-49a2-8f25-50dc8daf7770",
+        "chatSessionId": "sess_035a00cf-78cd-4784-b651-16134198f2a1",
+        "timestamp": 1791566368627
+      },
+      {
+        "executionId": "428c46ac-71b0-49a2-8f25-50dc8daf7770",
+        "chatSessionId": "sess_035a00cf-78cd-4784-b651-16134198f2a1",
+        "timestamp": 1791566571540
+      }
+    ],
+    "7. Checkpoint - backend complete": [
+      {
+        "executionId": "428c46ac-71b0-49a2-8f25-50dc8daf7770",
+        "chatSessionId": "sess_035a00cf-78cd-4784-b651-16134198f2a1",
+        "timestamp": 1791565432847
+      },
+      {
+        "executionId": "428c46ac-71b0-49a2-8f25-50dc8daf7770",
+        "chatSessionId": "sess_035a00cf-78cd-4784-b651-16134198f2a1",
+        "timestamp": 1791566903924
+      },
+      {
+        "executionId": "428c46ac-71b0-49a2-8f25-50dc8daf7770",
+        "chatSessionId": "sess_035a00cf-78cd-4784-b651-16134198f2a1",
+        "timestamp": 1791566957696
+      }
+    ],
+    "8.1 Create `templates/line.html`": [
+      {
+        "executionId": "428c46ac-71b0-49a2-8f25-50dc8daf7770",
+        "chatSessionId": "sess_035a00cf-78cd-4784-b651-16134198f2a1",
+        "timestamp": 1791565432880
+      },
+      {
+        "executionId": "428c46ac-71b0-49a2-8f25-50dc8daf7770",
+        "chatSessionId": "sess_035a00cf-78cd-4784-b651-16134198f2a1",
+        "timestamp": 1791566961653
+      },
+      {
+        "executionId": "428c46ac-71b0-49a2-8f25-50dc8daf7770",
+        "chatSessionId": "sess_035a00cf-78cd-4784-b651-16134198f2a1",
+        "timestamp": 1791567135413
+      }
+    ],
+    "8.2 Create `static/line.css`": [
+      {
+        "executionId": "428c46ac-71b0-49a2-8f25-50dc8daf7770",
+        "chatSessionId": "sess_035a00cf-78cd-4784-b651-16134198f2a1",
+        "timestamp": 1791565432915
+      },
+      {
+        "executionId": "428c46ac-71b0-49a2-8f25-50dc8daf7770",
+        "chatSessionId": "sess_035a00cf-78cd-4784-b651-16134198f2a1",
+        "timestamp": 1791566964448
+      },
+      {
+        "executionId": "428c46ac-71b0-49a2-8f25-50dc8daf7770",
+        "chatSessionId": "sess_035a00cf-78cd-4784-b651-16134198f2a1",
+        "timestamp": 1791567139441
+      }
+    ],
+    "8.3 Implement `static/line.js` timeline + picker rendering": [
+      {
+        "executionId": "428c46ac-71b0-49a2-8f25-50dc8daf7770",
+        "chatSessionId": "sess_035a00cf-78cd-4784-b651-16134198f2a1",
+        "timestamp": 1791565432970
+      },
+      {
+        "executionId": "428c46ac-71b0-49a2-8f25-50dc8daf7770",
+        "chatSessionId": "sess_035a00cf-78cd-4784-b651-16134198f2a1",
+        "timestamp": 1791566967171
+      },
+      {
+        "executionId": "428c46ac-71b0-49a2-8f25-50dc8daf7770",
+        "chatSessionId": "sess_035a00cf-78cd-4784-b651-16134198f2a1",
+        "timestamp": 1791567142288
+      }
+    ],
+    "8.4 Implement `static/line.js` subtask disclosure and reorder/remove controls": [
+      {
+        "executionId": "428c46ac-71b0-49a2-8f25-50dc8daf7770",
+        "chatSessionId": "sess_035a00cf-78cd-4784-b651-16134198f2a1",
+        "timestamp": 1791565433009
+      },
+      {
+        "executionId": "428c46ac-71b0-49a2-8f25-50dc8daf7770",
+        "chatSessionId": "sess_035a00cf-78cd-4784-b651-16134198f2a1",
+        "timestamp": 1791567145947
+      },
+      {
+        "executionId": "428c46ac-71b0-49a2-8f25-50dc8daf7770",
+        "chatSessionId": "sess_035a00cf-78cd-4784-b651-16134198f2a1",
+        "timestamp": 1791567314349
+      }
+    ],
+    "9. Final checkpoint - Ensure all tests pass": [
+      {
+        "executionId": "428c46ac-71b0-49a2-8f25-50dc8daf7770",
+        "chatSessionId": "sess_035a00cf-78cd-4784-b651-16134198f2a1",
+        "timestamp": 1791565433044
+      },
+      {
+        "executionId": "428c46ac-71b0-49a2-8f25-50dc8daf7770",
+        "chatSessionId": "sess_035a00cf-78cd-4784-b651-16134198f2a1",
+        "timestamp": 1791567318247
+      },
+      {
+        "executionId": "428c46ac-71b0-49a2-8f25-50dc8daf7770",
+        "chatSessionId": "sess_035a00cf-78cd-4784-b651-16134198f2a1",
+        "timestamp": 1791567910034
+      }
+    ],
+    "1. Create `line_module.py` skeleton: blueprint, constants, schema, and session guard": [
+      {
+        "executionId": "428c46ac-71b0-49a2-8f25-50dc8daf7770",
+        "chatSessionId": "sess_035a00cf-78cd-4784-b651-16134198f2a1",
+        "timestamp": 1791565649077
+      }
+    ],
+    "2. Implement core line logic helpers in `line_module.py`": [
+      {
+        "executionId": "428c46ac-71b0-49a2-8f25-50dc8daf7770",
+        "chatSessionId": "sess_035a00cf-78cd-4784-b651-16134198f2a1",
+        "timestamp": 1791566040301
+      }
+    ],
+    "4. Implement the read API endpoints": [
+      {
+        "executionId": "428c46ac-71b0-49a2-8f25-50dc8daf7770",
+        "chatSessionId": "sess_035a00cf-78cd-4784-b651-16134198f2a1",
+        "timestamp": 1791566361882
+      }
+    ],
+    "5. Implement the mutation API endpoints": [
+      {
+        "executionId": "428c46ac-71b0-49a2-8f25-50dc8daf7770",
+        "chatSessionId": "sess_035a00cf-78cd-4784-b651-16134198f2a1",
+        "timestamp": 1791566808875
+      }
+    ],
+    "6. Add the page route and wire the module into the app": [
+      {
+        "executionId": "428c46ac-71b0-49a2-8f25-50dc8daf7770",
+        "chatSessionId": "sess_035a00cf-78cd-4784-b651-16134198f2a1",
+        "timestamp": 1791566900308
+      }
+    ],
+    "8. Build the frontend": [
+      {
+        "executionId": "428c46ac-71b0-49a2-8f25-50dc8daf7770",
+        "chatSessionId": "sess_035a00cf-78cd-4784-b651-16134198f2a1",
+        "timestamp": 1791567314395
+      }
+    ]
+  }
+}

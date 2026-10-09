@@ -1,0 +1,324 @@
+/* ---------- LineTask: vertical timeline + task picker ----------
+   Reuses the palette and typography defined in style.css.
+   No new colors: every color references a --var from :root. */
+
+/* ===================== Barra de navegación compartida =====================
+   Estos estilos (.nav-link / .module-nav) viven normalmente en calendar.css.
+   Se incluyen aquí para que line.html no dependa de calendar.css y el header
+   se renderice correctamente de forma autónoma. Reutilizan la paleta. */
+
+.nav-link {
+  font-size: 0.85rem;
+  font-weight: 500;
+  color: var(--accent-ink);
+  text-decoration: none;
+}
+
+.nav-link:hover {
+  text-decoration: underline;
+}
+
+.module-nav {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  flex-wrap: wrap;
+}
+
+.module-nav .nav-link.active {
+  color: var(--fg);
+  text-decoration: none;
+  position: relative;
+}
+
+.module-nav .nav-link.active::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: -4px;
+  height: 2px;
+  background: var(--accent);
+  border-radius: 2px;
+}
+
+/* ===================== Vertical timeline ===================== */
+
+#line-timeline {
+  position: relative;
+  margin-bottom: 2.25rem;
+}
+
+.line-timeline {
+  list-style: none;
+  margin: 0;
+  padding: 0 0 0 1.75rem;
+  position: relative;
+}
+
+/* The vertical rail that threads through every point. */
+.line-timeline::before {
+  content: "";
+  position: absolute;
+  top: 0.5rem;
+  bottom: 0.5rem;
+  left: 0.4rem;
+  width: 2px;
+  background: var(--border);
+  border-radius: 2px;
+}
+
+.line-item {
+  position: relative;
+  margin-bottom: 0.75rem;
+}
+
+.line-item:last-child {
+  margin-bottom: 0;
+}
+
+/* The dot sitting on the rail for each item. */
+.line-point {
+  position: absolute;
+  left: -1.47rem;
+  top: 1.05rem;
+  width: 11px;
+  height: 11px;
+  border-radius: 50%;
+  background: var(--accent);
+  border: 2px solid var(--panel);
+  box-shadow: 0 0 0 1px var(--border);
+}
+
+.line-item-body {
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  background: var(--panel);
+  box-shadow: var(--shadow);
+  padding: 0.9rem 1.1rem;
+  transition: border-color 0.15s ease;
+}
+
+.line-item-body:hover {
+  border-color: var(--accent);
+}
+
+.line-item-head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+}
+
+.line-item-main {
+  flex: 1;
+  min-width: 0;
+}
+
+.line-item-title {
+  font-weight: 600;
+  color: var(--fg);
+}
+
+/* Nature label derived from the item's module (FR-01). */
+.line-nature {
+  display: inline-block;
+  margin-left: 0.5rem;
+  font-size: 0.65rem;
+  font-weight: 600;
+  padding: 0.1rem 0.45rem;
+  border-radius: 999px;
+  vertical-align: middle;
+  text-transform: uppercase;
+  letter-spacing: 0.02em;
+  background: var(--panel-alt);
+  color: var(--muted);
+}
+
+.line-nature-academic {
+  background: var(--accent-soft);
+  color: var(--accent-ink);
+}
+
+.line-nature-work {
+  background: var(--amber-soft);
+  color: var(--amber);
+}
+
+.line-nature-personal {
+  background: var(--sage-soft);
+  color: var(--sage);
+}
+
+/* Up / down / remove and the subtask disclosure control. */
+.line-controls {
+  display: flex;
+  gap: 0.4rem;
+  flex-shrink: 0;
+}
+
+.line-controls button {
+  padding: 0.3rem 0.65rem;
+  font-size: 0.78rem;
+}
+
+/* Eliminar la tarea completa: acción destructiva, resaltada en el tono rosa
+   de la paleta para distinguirla de "Quitar" (que solo la saca de la línea). */
+.line-control-delete-task {
+  color: var(--rose);
+}
+
+.line-control-delete-task:hover {
+  color: var(--rose);
+  border-color: var(--rose);
+  background: var(--rose-soft);
+}
+
+.line-disclosure {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.3rem;
+  margin-top: 0.4rem;
+  padding: 0.1rem 0;
+  font: inherit;
+  font-size: 0.8rem;
+  font-weight: 500;
+  color: var(--accent-ink);
+  background: none;
+  border: none;
+  border-radius: 0;
+  cursor: pointer;
+}
+
+.line-disclosure:hover {
+  background: none;
+  text-decoration: underline;
+}
+
+/* ---------- Subtask subtree (collapsed by default; JS toggles) ---------- */
+
+.line-subtasks {
+  margin: 0.5rem 0 0 0;
+  padding: 0.4rem 0 0 0.9rem;
+  list-style: none;
+  border-top: 1px solid var(--border);
+}
+
+/* Collapsed state applied by line.js. */
+.line-subtasks.collapsed,
+.line-subtasks[hidden] {
+  display: none;
+}
+
+.line-subtask {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.3rem 0;
+  font-size: 0.85rem;
+  color: var(--fg);
+}
+
+.line-subtask.done .line-subtask-text {
+  text-decoration: line-through;
+  color: var(--muted);
+}
+
+/* El texto ocupa el espacio central; el checkbox a la izquierda y el botón
+   de eliminar a la derecha. */
+.line-subtask-text {
+  flex: 1;
+  min-width: 0;
+}
+
+.line-subtask-check {
+  flex-shrink: 0;
+  accent-color: var(--accent);
+  width: 15px;
+  height: 15px;
+  cursor: pointer;
+}
+
+/* Botón discreto para eliminar la subtarea terminada. */
+.line-subtask-remove {
+  flex-shrink: 0;
+  padding: 0.1rem 0.45rem;
+  font-size: 0.75rem;
+  line-height: 1;
+  color: var(--muted);
+  border-radius: 999px;
+}
+
+.line-subtask-remove:hover {
+  color: var(--rose);
+  border-color: var(--rose);
+  background: var(--rose-soft);
+}
+
+/* ===================== Available-task picker ===================== */
+
+#line-picker {
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  background: var(--panel);
+  padding: 1.1rem 1.25rem;
+}
+
+.line-picker-title {
+  font-family: "Fraunces", Georgia, serif;
+  font-size: 1.1rem;
+  font-weight: 500;
+  margin: 0 0 1rem 0;
+}
+
+.line-group {
+  margin-bottom: 1.25rem;
+}
+
+.line-group:last-child {
+  margin-bottom: 0;
+}
+
+.line-group-title {
+  font-family: "Fraunces", Georgia, serif;
+  font-size: 0.95rem;
+  font-weight: 500;
+  color: var(--accent-ink);
+  margin: 0 0 0.5rem 0;
+}
+
+.line-available-task {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.75rem;
+  padding: 0.5rem 0.1rem;
+  border-bottom: 1px solid var(--border);
+  font-size: 0.9rem;
+  color: var(--fg);
+}
+
+.line-available-task:last-child {
+  border-bottom: none;
+}
+
+.line-available-task-title {
+  flex: 1;
+  min-width: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.line-available-task button {
+  padding: 0.3rem 0.7rem;
+  font-size: 0.78rem;
+  flex-shrink: 0;
+}
+
+.line-picker-empty {
+  color: var(--muted);
+  font-size: 0.85rem;
+  padding: 1rem 0;
+  text-align: center;
+}

@@ -5,4 +5,5 @@ NAV_LINKS = [
     {"href": "/trabajo", "label": "Trabajo"},
     {"href": "/personal", "label": "Personal"},
     {"href": "/calendar", "label": "Calendario"},
+    {"href": "/linea", "label": "Línea del día"},
 ]
